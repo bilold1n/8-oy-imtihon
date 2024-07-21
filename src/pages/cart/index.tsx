@@ -24,6 +24,11 @@ export default function YouCart() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    const savedCounts = JSON.parse(localStorage.getItem("counts") || "{}");
+    setCounts(savedCounts);
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       const docRef = doc(db, "cart", user.uid);
       const docSnap = await getDoc(docRef);
@@ -64,6 +69,10 @@ export default function YouCart() {
     }
   }, [usedata]);
 
+  useEffect(() => {
+    localStorage.setItem("counts", JSON.stringify(counts));
+  }, [counts]);
+
   const increment = (id: string) => {
     setCounts((prevCounts) => ({
       ...prevCounts,
@@ -87,7 +96,6 @@ export default function YouCart() {
 
   const removeItem = async (id: string) => {
     console.log(id);
-
     message.info("Bu yerni qila olmadim");
   };
 
