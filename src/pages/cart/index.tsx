@@ -22,6 +22,7 @@ export default function YouCart() {
   const [usedata, setUsedata] = useState<{ [key: string]: any }>({});
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  console.log(cart);
 
   useEffect(() => {
     const savedCounts = JSON.parse(localStorage.getItem("counts") || "{}");
