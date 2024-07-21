@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+  html {
+    @apply h-full scroll-smooth;
+  }
+  body {
+    @apply h-full flex flex-col;
+  }
+  main {
+    @apply flex-grow;
+  }
+  #root {
+    @apply h-full flex flex-col;
+  }
+}
+@layer components {
+  .container {
+    @apply max-w-[1280px] w-full mx-auto px-5;
+  }
+  .mygrid {
+    @apply grid grid-cols-3 gap-7;
+  }
+  @media screen and (max-width: 1157px) {
+    .mygrid {
+      @apply grid-cols-2 gap-3;
+    }
+  }
+  @media screen and (max-width: 782px) {
+    .mygrid {
+      @apply grid-cols-1 gap-8;
+    }
+  }
+}
