@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { db } from "../../firebasy/firebasyConfig";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db, DeleteDocitem1 } from "../../firebasy/firebasyConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 // Define types for better type safety
 type CartItem = {
@@ -36,11 +36,9 @@ export default function YouCart() {
     };
     fetchData();
   }, [user.uid]);
-
   useEffect(() => {
     localStorage.setItem("lengt", JSON.stringify(Object.keys(usedata).length));
   }, [Object.keys(usedata).length]);
-
   useEffect(() => {
     if (Object.keys(usedata).length > 0) {
       const fetchProducts = async () => {
@@ -63,11 +61,6 @@ export default function YouCart() {
       fetchProducts();
     }
   }, [usedata]);
-
-  useEffect(() => {
-    // Save the number of items in the cart to localStorage
-    localStorage.setItem("cartLength", cart.length.toString());
-  }, [cart]);
 
   const increment = (id: string) => {
     setCounts((prevCounts) => ({
@@ -95,25 +88,18 @@ export default function YouCart() {
       "Are you sure you want to remove this item from your cart?"
     );
     if (confirmDelete) {
-      try {
-        // Remove item from cart in Firebase
-        const cartRef = doc(db, "cart", user.uid);
-        const cartSnap = await getDoc(cartRef);
-        if (cartSnap.exists()) {
-          const updatedData = { ...cartSnap.data() };
-          delete updatedData[id];
-          await updateDoc(cartRef, updatedData);
+      console.log(id);
+      console.log(cart);
 
-          // Remove item from local cart state
-          setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+      await DeleteDocitem1("cart", id);
+      message.success("Item removed from cart");
 
-          message.success("Item removed from cart");
-        } else {
-          console.log("No such document!");
-        }
-      } catch (error) {
-        console.error("Error removing item: ", error);
-        message.error("Failed to remove item from cart");
+      const docRef = doc(db, "cart", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setUsedata({ ...docSnap.data() });
+      } else {
+        console.log("No such document!");
       }
     }
   };
@@ -191,7 +177,7 @@ export default function YouCart() {
               </div>
             ))
           ) : (
-            <p>No items in your cart.</p>
+            <p></p>
           )}
         </div>
         <div>
