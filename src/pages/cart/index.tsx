@@ -21,21 +21,28 @@ export default function YouCart() {
   const [counts, setCounts] = useState<Counts>({});
   const [usedata, setUsedata] = useState<{ [key: string]: any }>({});
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const docRef = doc(db, "cart", user.uid);
-    getDoc(docRef).then((docSnap) => {
+    const fetchData = async () => {
+      const docRef = doc(db, "cart", user.uid);
+      const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setUsedata({ ...docSnap.data() });
       } else {
         console.log("No such document!");
       }
-    });
+      setLoading(false); // Set loading to false after fetching data
+    };
+    fetchData();
   }, [user.uid]);
-
+  useEffect(() => {
+    localStorage.setItem("lengt", JSON.stringify(Object.keys(usedata).length));
+  }, [Object.keys(usedata).length]);
   useEffect(() => {
     if (Object.keys(usedata).length > 0) {
       const fetchProducts = async () => {
+        setLoading(true); // Set loading to true before fetching products
         const cartItems: CartItem[] = [];
         for (const id of Object.keys(usedata)) {
           const docRef = doc(db, "products", id);
@@ -49,6 +56,7 @@ export default function YouCart() {
           }
         }
         setCart(cartItems);
+        setLoading(false); // Set loading to false after fetching products
       };
       fetchProducts();
     }
@@ -82,6 +90,15 @@ export default function YouCart() {
     if (confirmDelete) {
       await DeleteDocitem1("cart", id);
       message.success("Item removed from cart");
+
+      // Refresh the cart data after item removal
+      const docRef = doc(db, "cart", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setUsedata({ ...docSnap.data() });
+      } else {
+        console.log("No such document!");
+      }
     }
   };
 
@@ -101,12 +118,12 @@ export default function YouCart() {
   return (
     <div className="container">
       <div className="mx-auto flex items-center justify-center mt-5">
-        {!usedata && (
+        {loading ? (
           <span
             style={{ zoom: "2" }}
             className="loading loading-bars loading-lg"
           ></span>
-        )}
+        ) : null}
       </div>
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
@@ -158,7 +175,7 @@ export default function YouCart() {
               </div>
             ))
           ) : (
-            <p>No items in your cart.</p>
+            <p></p>
           )}
         </div>
         <div>
