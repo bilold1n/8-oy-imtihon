@@ -2,7 +2,7 @@ import { message } from "antd";
 import useGetData from "../hooks/usegetdata";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { DeleteDocitem1 } from "../../../firebasy/firebasyConfig";
+import { DeleteDocitem1 } from "../../firebasy/firebasyConfig";
 import { useState } from "react";
 export default function Home() {
   const [fresh, setFresh] = useState(false);

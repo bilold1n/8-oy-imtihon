@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { message, Modal } from "antd";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebasy/firebasyConfig";
+import { db } from "../firebasy/firebasyConfig";
 
 export default function CreateRecipe() {
   const [title, setTitle] = useState("");

@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { auth } from "../../../firebasy/firebasyConfig";
+import { auth } from "../../firebasy/firebasyConfig";
 import { useDispatch } from "react-redux";
 import { login } from "../../apps/userslice";
 import {

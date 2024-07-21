@@ -5,7 +5,7 @@ import {
   DocumentData,
   QuerySnapshot,
 } from "firebase/firestore";
-import { db } from "../../../firebasy/firebasyConfig.tsx";
+import { db } from "../../firebasy/firebasyConfig.tsx";
 
 // Error interfeysini yaratamiz
 interface Error {

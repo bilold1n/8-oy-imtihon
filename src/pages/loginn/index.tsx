@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from "react";
-import { auth } from "../../../firebasy/firebasyConfig";
+import { auth } from "../../firebasy/firebasyConfig";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../../apps/userslice";

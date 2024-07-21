@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../../../firebasy/firebasyConfig";
+import { db } from "../../firebasy/firebasyConfig";
 import { message } from "antd";
 
 function Detalis() {
