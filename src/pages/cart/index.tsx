@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { db, DeleteDocitem1 } from "../../firebasy/firebasyConfig";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebasy/firebasyConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 // Define types for better type safety
 type CartItem = {
