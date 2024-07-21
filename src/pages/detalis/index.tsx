@@ -5,7 +5,7 @@ import { db } from "../../firebasy/firebasyConfig";
 import { message } from "antd";
 
 function Detalis() {
-  const { id } = useParams();
+  const { id }: any = useParams();
   const [data, setData] = useState<any[]>([]);
   const [count, setCount] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,7 @@ function Detalis() {
   }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const docRef = doc(db, "products", id);
+      const docRef: any = doc(db, "products", id) || "";
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
