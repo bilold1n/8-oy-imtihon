@@ -86,28 +86,7 @@ export default function YouCart() {
   };
 
   const removeItem = async (id: string) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to remove this item from your cart?"
-    );
-    if (confirmDelete) {
-      console.log(id);
-      console.log(cart);
-
-      await DeleteDocitem1("cart", id); // Update the delete function here
-
-      const docRef = doc(db, "cart", user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const newData = { ...docSnap.data() };
-        delete newData[id]; // Remove the item from the local state
-        await updateDoc(docRef, newData); // Update Firestore document
-        setUsedata(newData); // Update local state with new data
-      } else {
-        console.log("No such document!");
-      }
-
-      message.success("Item removed from cart");
-    }
+    message.info("Bu yerni qila olmadim");
   };
 
   const getSubtotal = () => {
