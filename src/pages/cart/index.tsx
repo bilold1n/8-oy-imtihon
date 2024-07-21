@@ -86,6 +86,8 @@ export default function YouCart() {
   };
 
   const removeItem = async (id: string) => {
+    console.log(id);
+
     message.info("Bu yerni qila olmadim");
   };
 
