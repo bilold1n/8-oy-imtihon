@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { db, DeleteDocitem1 } from "../../firebasy/firebasyConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 // Define types for better type safety
 type CartItem = {
@@ -36,9 +36,11 @@ export default function YouCart() {
     };
     fetchData();
   }, [user.uid]);
+
   useEffect(() => {
     localStorage.setItem("lengt", JSON.stringify(Object.keys(usedata).length));
   }, [Object.keys(usedata).length]);
+
   useEffect(() => {
     if (Object.keys(usedata).length > 0) {
       const fetchProducts = async () => {
@@ -91,16 +93,20 @@ export default function YouCart() {
       console.log(id);
       console.log(cart);
 
-      await DeleteDocitem1("cart", id);
-      message.success("Item removed from cart");
+      await DeleteDocitem1("cart", id); // Update the delete function here
 
       const docRef = doc(db, "cart", user.uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setUsedata({ ...docSnap.data() });
+        const newData = { ...docSnap.data() };
+        delete newData[id]; // Remove the item from the local state
+        await updateDoc(docRef, newData); // Update Firestore document
+        setUsedata(newData); // Update local state with new data
       } else {
         console.log("No such document!");
       }
+
+      message.success("Item removed from cart");
     }
   };
 
