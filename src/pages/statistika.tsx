@@ -100,13 +100,13 @@ export default function CreateRecipe() {
     try {
       await addDoc(collection(db, "products"), recipe);
       message.success("Recipe submitted successfully!");
-      // setCategory("");
-      // setCookingTime(undefined);
-      // setIngredients([]);
-      // setImageURLs([]);
-      // setMethod("");
-      // setPrice(0);
-      // setTitle("");
+      setCategory("");
+      setCookingTime(undefined);
+      setIngredients([]);
+      setImageURLs([]);
+      setMethod("");
+      setPrice(0);
+      setTitle("");
       navigate("/");
     } catch (error) {
       console.error("Error adding document: ", error);
