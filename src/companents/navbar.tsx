@@ -155,7 +155,7 @@ export default function Navbar() {
                   <NavLink to={"/createrecipe"}>Create recipe</NavLink>
                 </li>
                 <li>
-                  <NavLink to={"/statistika"}>Statistika</NavLink>
+                  <NavLink to={"/statistika"}>Statistics</NavLink>
                 </li>
                 <li>
                   <NavLink onClick={onout} to={"/login"}>

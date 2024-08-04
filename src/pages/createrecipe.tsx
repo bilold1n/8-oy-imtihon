@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { message, Modal } from "antd";
 import { addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { db } from "../firebasy/firebasyConfig";
 
 export default function CreateRecipe() {
@@ -14,6 +15,9 @@ export default function CreateRecipe() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [modal2Open, setModal2Open] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const isValidURL = (url: string) => {
     try {
@@ -81,6 +85,8 @@ export default function CreateRecipe() {
       return;
     }
 
+    setLoading(true);
+
     const recipe = {
       title,
       cookingTime,
@@ -90,17 +96,24 @@ export default function CreateRecipe() {
       category,
       price,
     };
-    await addDoc(collection(db, "products"), recipe);
 
-    console.log(recipe);
-    message.success("Recipe submitted successfully!");
-    setCategory("");
-    setCookingTime(1);
-    setIngredients([]);
-    setImageURLs([]);
-    setMethod("");
-    setPrice(0);
-    setTitle("");
+    try {
+      await addDoc(collection(db, "products"), recipe);
+      message.success("Recipe submitted successfully!");
+      setCategory("");
+      setCookingTime(undefined);
+      setIngredients([]);
+      setImageURLs([]);
+      setMethod("");
+      setPrice(0);
+      setTitle("");
+      navigate("/");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      message.error("Error submitting the recipe.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -139,11 +152,10 @@ export default function CreateRecipe() {
                 <option value="" disabled>
                   Select a category
                 </option>
-
-                <option value="Qovirilgan">Qovurilgan</option>
+                <option value="Qovurilgan">Qovurilgan</option>
                 <option value="Qaynatilgan">Qaynatilgan</option>
                 <option value="Dimlangan">Dimlangan</option>
-                <option value="Didlangan">Dudlangan</option>
+                <option value="Dudlangan">Dudlangan</option>
                 <option value="Shirinlik">Shirinlik</option>
                 <option value="Dessert">Dessert</option>
               </select>
@@ -245,8 +257,18 @@ export default function CreateRecipe() {
               ></textarea>
             </div>
             <div className="flex justify-center gap-[10px] flex-wrap">
-              <button className="btn bg-info w-[245px]" onClick={handleSubmit}>
-                Apply
+              <button
+                className="btn bg-info w-[245px]"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <span className="loading loading-bars loading-lg"></span>
+                  </div>
+                ) : (
+                  "Apply"
+                )}
               </button>
               <button
                 onClick={() => setModal2Open(true)}
