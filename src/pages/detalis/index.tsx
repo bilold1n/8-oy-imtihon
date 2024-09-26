@@ -116,8 +116,10 @@ function Detalis() {
                 </div>
               </div>
               <p>Cooking time: {item.cookingTime} minutes</p>
-              <h3>Method</h3>
-              <p>{item.method}</p>
+              <div className="flex gap-2">
+                <h3>Method</h3>
+                <p>{item.method}</p>
+              </div>
             </div>
 
             <div className="flex justify-between items-center mt-5 md:mt-0">

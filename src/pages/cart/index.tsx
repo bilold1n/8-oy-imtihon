@@ -22,7 +22,6 @@ export default function YouCart() {
   const [usedata, setUsedata] = useState<{ [key: string]: any }>({});
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  console.log(cart);
 
   useEffect(() => {
     const savedCounts = JSON.parse(localStorage.getItem("counts") || "{}");
@@ -42,10 +41,6 @@ export default function YouCart() {
     };
     fetchData();
   }, [user.uid]);
-
-  useEffect(() => {
-    localStorage.setItem("lengt", JSON.stringify(Object.keys(usedata).length));
-  }, [Object.keys(usedata).length]);
 
   useEffect(() => {
     if (Object.keys(usedata).length > 0) {
@@ -69,10 +64,6 @@ export default function YouCart() {
       fetchProducts();
     }
   }, [usedata]);
-
-  useEffect(() => {
-    localStorage.setItem("counts", JSON.stringify(counts));
-  }, [counts]);
 
   const increment = (id: string) => {
     setCounts((prevCounts) => ({
@@ -114,8 +105,8 @@ export default function YouCart() {
   const orderTotal = subtotal + shipping + tax;
 
   return (
-    <div className="container">
-      <div className="mx-auto flex items-center justify-center mt-5">
+    <div className="container mx-auto px-4">
+      <div className="flex items-center justify-center mt-5">
         {loading ? (
           <span
             style={{ zoom: "2" }}
@@ -123,83 +114,79 @@ export default function YouCart() {
           ></span>
         ) : null}
       </div>
-      <div className="flex justify-between">
-        <div className="flex flex-col gap-8">
+      <div className="flex flex-col lg:flex-row justify-between">
+        <div className="flex flex-col gap-8 w-full lg:w-[700px]">
           {cart.length ? (
             cart.map((item) => (
-              <div key={item.id} className="w-[700px]">
+              <div key={item.id} className="w-full">
                 <div className="card card-side bg-base-100 shadow-xl">
                   <figure>
                     <img
-                      className="w-[200px] h-full"
-                      width={200}
-                      height={100}
+                      className="w-[100px] h-full md:w-[200px]"
                       src={item.imageURLs[0]}
                       alt={item.title}
                     />
                   </figure>
-                  <div className="card-body flex">
-                    <div className="flex justify-between">
-                      <div>
-                        <h2 className="card-title">{item.title}</h2>
-                        <p>${item.price}</p>
+                  <div className="card-body flex flex-col lg:flex-row justify-between">
+                    <div>
+                      <h2 className="card-title">{item.title}</h2>
+                      <p>${item.price}</p>
+                    </div>
+                    <div className="flex items-center justify-between mt-2 lg:mt-0">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => decrement(item.id)}
+                          className="btn btn-primary"
+                        >
+                          -
+                        </button>
+                        <p>Count: {counts[item.id] || 1}</p>
+                        <button
+                          onClick={() => increment(item.id)}
+                          className="btn btn-primary"
+                        >
+                          +
+                        </button>
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => decrement(item.id)}
-                            className="btn btn-primary"
-                          >
-                            -
-                          </button>
-                          <p>Count: {counts[item.id] || 1}</p>
-                          <button
-                            onClick={() => increment(item.id)}
-                            className="btn btn-primary"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <span className="text-2xl flex justify-end mt-5">
-                          <DeleteOutlined
-                            className="text-red-500 cursor-pointer"
-                            onClick={() => removeItem(item.id)}
-                          />
-                        </span>
-                      </div>
+                      <DeleteOutlined
+                        className="text-red-500 cursor-pointer ml-4"
+                        onClick={() => removeItem(item.id)}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <p></p>
+            <p>Cart is empty</p>
           )}
         </div>
-        <div>
+        <div className="mt-5 lg:mt-0">
           <div className="flex flex-col gap-6 ">
-            <div className="w-[325px] bg-primary-content rounded-xl text-[#394E6A] p-8">
-              <div className="flex my-3">
-                <p className="mr-auto">Subtotal</p>
+            <div className="w-full lg:w-[325px] bg-primary-content rounded-xl text-[#394E6A] p-4 md:p-8">
+              <div className="flex my-3 justify-between">
+                <p>Subtotal</p>
                 <p>${Math.round(subtotal)}.00</p>
               </div>
               <hr />
-              <div className="flex my-3">
-                <p className="mr-auto">Shipping</p>
+              <div className="flex my-3 justify-between">
+                <p>Shipping</p>
                 <p>${shipping}.00</p>
               </div>
               <hr />
-              <div className="flex my-3">
-                <p className="mr-auto">Tax</p>
+              <div className="flex my-3 justify-between">
+                <p>Tax</p>
                 <p>${tax}.00</p>
               </div>
               <hr />
-              <div className="flex mt-5">
-                <h3 className="mr-auto">Order Total</h3>
+              <div className="flex mt-5 justify-between">
+                <h3>Order Total</h3>
                 <p>${Math.round(orderTotal)}.00</p>
               </div>
             </div>
-            <button className="btn btn-primary w-[325px]">Checkout</button>
+            <button className="btn btn-primary w-full lg:w-[325px]">
+              Checkout
+            </button>
           </div>
         </div>
       </div>

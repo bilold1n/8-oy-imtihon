@@ -71,8 +71,8 @@ export default function Home() {
                     </button>
                   </div>
                   <Link to={`/detalis/${item.id}`}>
-                    <h2 className="text-2xl font-bold px-8">{item.title}</h2>
-                    <p className=" px-8">
+                    <h2 className="text-2xl font-bold px-6">{item.title}</h2>
+                    <p className=" px-6">
                       {item.method.split(" ").slice(0, 10).join(" ")}
                     </p>
 

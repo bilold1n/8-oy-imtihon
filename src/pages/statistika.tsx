@@ -9,7 +9,7 @@ export default function Statistika() {
     if (!isPending && data.length > 0) {
       // Ma'lumotlarni grafik formatiga o'tkazish
       const cookingTimes = data.map((item) => item.cookingTime);
-      const productNames = data.map((item) => item.title || "Unnamed"); // 'title' maydoni mavjudligini taxmin qilish
+      const productNames = data.map((item) => item.title || "Unnamed");
 
       // Kategoriyalarni sanash
       const categoriesCount = data.reduce((acc, item) => {
@@ -87,8 +87,6 @@ export default function Statistika() {
 
       pieChart.render();
       barChart.render();
-
-      // Tozalash funksiyasi
       return () => {
         pieChart.destroy();
         barChart.destroy();
