@@ -39,7 +39,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? (
-              // X icon when the menu is open
+              // X icon when the menu   is open
               <svg
                 className="w-6 h-6"
                 fill="none"

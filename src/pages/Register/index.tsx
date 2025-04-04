@@ -77,16 +77,15 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div data-theme="light" className="hero min-h-scree">
-      <div className="hero-content flex-col w-[600px]">
-        <div className="card shrink-0 max-w-sm shadow-2xl w-full">
+    <div data-theme="light" className="hero min-h-screen mt-25">
+      <div className="hero-content flex flex-col justify-center items-center w-full">
+        <div className="card shrink-0 max-w-sm shadow-2xl w-full md:w-96">
           <form onSubmit={handleSubmit} className="card-body">
             <h2 className="text-5xl font-serif text-[#394E6A] text-center mb-4">
               Register!
             </h2>
-            <div className="form-control ">
+            <div className="form-control">
               <span className="my-1">Username</span>
-
               <label className="input input-bordered flex items-center gap-1">
                 <svg
                   width={16}
@@ -189,36 +188,9 @@ const Register: React.FC = () => {
               onClick={registergoogle}
               className="btn bg-black rounded-full text-white"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
-                width="25px"
-                height="25px"
-              >
-                <path
-                  fill="#4285F4"
-                  d="M44.5,20H24v8.5h11.9C34.7,34,30.1,37,24,37c-7.2,0-13-5.8-13-13s5.8-13,13-13c3.3,0,6.3,1.2,8.6,3.1l6.3-6.3C34.6,4.4,29.6,2.5,24,2.5C12,2.5,2.5,12,2.5,24S12,45.5,24,45.5C36,45.5,45.5,36,45.5,24C45.5,22.7,45.3,21.3,44.5,20z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M6.5,14.3l6.5,4.8c1.7-4.1,5.7-7,10.4-7c3.1,0,5.9,1.2,8,3.1L37.7,8C33.6,4.4,29,2.5,24,2.5C16.1,2.5,9.1,7.1,6.5,14.3z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M24,45.5c4.9,0,9.4-1.9,12.7-5l-6.4-5.5c-1.9,1.5-4.3,2.5-7,2.5c-4.8,0-8.8-3.1-10.2-7.3l-6.5,5C9.1,40.9,16.1,45.5,24,45.5z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M44.5,20H24v8.5h11.9c-1,2.7-3.1,4.8-5.8,6.1l6.4,5C39.5,37.5,45.5,31.5,45.5,24C45.5,22.7,45.3,21.3,44.5,20z"
-                />
-              </svg>
               Sign up with Google
             </button>
-            <Link
-              style={{ textDecoration: "none", color: "#fff" }}
-              className="text-center mt-1 btn btn-secondary"
-              to="/login"
-            >
+            <Link className="text-center mt-1 btn btn-secondary" to="/login">
               Already a member? Sign in
             </Link>
           </form>

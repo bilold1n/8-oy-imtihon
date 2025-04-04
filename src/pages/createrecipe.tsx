@@ -310,7 +310,9 @@ export default function CreateRecipe() {
               ))}
             </div>
           </div>
+          <p className="font-bold"> Category: {category} </p>
           <p className="font-bold">Cooking time: {cookingTime} minutes</p>
+          <p className="font-bold">Price: {price}$</p>
           <div className="flex flex-col gap-2">
             <h3 className="font-bold">Method:</h3>
             <p>{method}</p>
