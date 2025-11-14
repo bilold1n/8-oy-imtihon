@@ -6,6 +6,7 @@ import { login } from "../../apps/userslice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { balloons } from "balloons-js";
 
 interface FormData {
   email: string;
@@ -25,6 +26,7 @@ const Login: React.FC = () => {
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(login(user));
+        balloons();
         navigate("/");
         message.success("You have successfully logged into your account");
       })
@@ -35,12 +37,14 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(login(user));
+        balloons();
         navigate("/");
         message.success("You have successfully logged into your account");
       })

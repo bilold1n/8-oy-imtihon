@@ -4,6 +4,7 @@ import { ClockCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { DeleteDocitem1 } from "../../firebasy/firebasyConfig";
 import { useState } from "react";
+
 export default function Home() {
   const [fresh, setFresh] = useState(false);
   const handleDelete = async (id: any) => {
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <div className="mt-[50px] container">
       <h1 className="text-[30px] font-semibold pb-3">Recipes</h1>
+
       <div className="mx-auto flex items-center justify-center mt-5">
         {isPending && (
           <span

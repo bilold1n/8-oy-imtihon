@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
 import { message } from "antd";
-
+import { balloons } from "balloons-js";
 interface FormData {
   email: string;
   password: string;
@@ -37,6 +37,7 @@ const Register: React.FC = () => {
         const user = result.user;
         dispatch(login(user));
         localStorage.setItem("user", JSON.stringify(user));
+        balloons();
         navigate("/");
         message.success("Registered successfully");
       })
@@ -62,6 +63,7 @@ const Register: React.FC = () => {
               "user",
               JSON.stringify(auth.currentUser!.providerData[0])
             );
+            balloons();
             message.success("Registered successfully");
           })
           .catch((error) => {
